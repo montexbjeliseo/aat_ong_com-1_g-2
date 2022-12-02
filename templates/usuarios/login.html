@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="m-4">
+    <form class="p-4 shadow p-3 mb-5 bg-body rounded border-1" style="max-width: 500px; margin: auto;" method="post">
+        {%csrf_token%}
+        <div class="h1">Iniciar sesión</div>
+        {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Por favor, ingrese un usuario y contraseña correctos
+
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        <div class="mbs-3">
+            <label for="id_email" class="form-label">Correo electrónico</label>
+            {{form.username}}
+        </div>
+        <div class="mb-3">
+            <label for="id_password" class="form-label">Contraseña</label>
+            {{form.password}}
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Guardar sesión</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar</button> | <a href="{% url 'registro' %}">Registrarse</a>
+    </form>
+</div>
+{% endblock content %}

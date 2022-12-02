@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="m-4">
+    <form class="p-4 shadow p-3 mb-5 bg-body rounded border-1" style="max-width: 500px; margin: auto;" method="post">
+        {% csrf_token %}
+        <div class="h1">Registrarse</div>
+        <div class="mb-3">
+            <label for="id_first_name" class="form-label">Nombre</label>
+            {{form.first_name}}
+            <div class="text-danger">
+                {{form.first_name.errors}}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="id_last_name" class="form-label">Apellido</label>
+            {{form.last_name}}
+            <div class="text-danger">
+                {{form.last_name.errors}}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="id_email" class="form-label">Correo electrónico</label>
+            {{form.username}}
+            <div class="text-danger">
+                {{form.username.errors}}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="id_password1" class="form-label">Contraseña</label>
+            {{form.password1}}
+            <div class="danger">
+                {{form.password1.errors}}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="id_password2" class="form-label">Confirmar contraseña</label>
+            {{form.password2}}
+            <div class="text-danger">
+                {{form.password2.errors}}
+            </div>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Suscribirse a nuestro newsletter</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear usuario</button> | <a href="{% url 'login' %}">Ya tengo una
+            cuenta</a>
+    </form>
+</div>
+{% endblock content %}

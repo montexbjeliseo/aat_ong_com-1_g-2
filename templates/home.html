@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="carouselExampleDark" class="carousel carousel-dark slide m-4" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img src="static/img/imp1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h3 class="text-white">
+                    Nuestra meta es promover el Arte y el Turismo, rescatando, revalorizando e incluyendo todas las
+                    manifestaciones artísticas y culturales, en salvaguarda de nuestra identidad, y en defensa del medio
+                    ambiente
+                </h3>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="static/img/imp2.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h2 class="text-white">
+                    La Fundación Amigos del Arte y Turismo, con Personería Jurídica Nº452/14 es una Entidad no
+                    lucrativa, con el fin de vincular las expresiones culturales de la región, la idiosincrasia de la
+                    gente y el turismo a través del ARTE
+                </h2>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="static/img/imp3.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h2 class="text-white">
+                    Nos reconocemos como parte de “El Impenetrable”, su cultura y su gente. Por eso, buscamos dar a
+                    conocer nuestra región, su riqueza, sus leyendas, su arte y su poesía, que invitan a recorrer
+                    lugares como la FIDELIDAD, MISIÓN NUEVA POMPEYA, LA CANGAYÉ, LAS RUINAS DEL Km 71 que nos hablan de
+                    nuestra historia y nuestra gente.
+                </h2>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<div class="m-4 p-4">
+    <div class="h1">Todas las noticias</div>
+    <div class="card-group gap-3">
+        {% for n in samples %}
+        <div class="card box-shadow-3">
+            <img src="{% static 'img/imp1.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Titulo de la noticia</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                    content. This content is a little bit longer.</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

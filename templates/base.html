@@ -1,0 +1,154 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Fundacion Amigos del Arte y Turismo</title>
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'inicio' %}"><img src="{% static 'img/logo1.png' %}" alt=""
+                    height="70px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'nosotros' %}">Quienes somos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{% url 'contacto' %}">Contacto</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{% url 'noticias' %}" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Noticias
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Más recientes</a></li>
+                            <li><a class="dropdown-item" href="#">Más destacadas</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'noticias' %}">Todas las noticias</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid d-flex justify-content-end">
+        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown_profile" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle"></i>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown_profile">
+            {% if user.is_authenticated %}
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="#">Ajustes</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'login' %}">Iniciar sesión</a></li>
+            <li><a class="dropdown-item" href="{% url 'registro' %}">Registrarse</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div>
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+
+    <footer class="px-4">
+        <div class="row d-flex justify-content-evenly">
+            <div class="col-3">
+                <h5>Navegación</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="{% url 'inicio' %}" class="nav-link p-0 text-muted">Inicio</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'nosotros' %}" class="nav-link p-0 text-muted">Quienes somos</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'contacto' %}" class="nav-link p-0 text-muted">Contacto</a></li>
+                    <li class="nav-item mb-2"><a href="#faq" class="nav-link p-0 text-muted">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="col-3">
+                <h5>Noticias</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 1</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 2</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 3</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 4</a></li>
+                </ul>
+            </div>
+            <div class="col-4 offset-1">
+                {% if user.is_authenticated %}
+                <div>
+                    <div class="h3">Gracias por formar parte!</div>
+                </div>
+                {% else %}
+                <form>
+                    <h5>Suscr&iacute;bete a nuestro noticiasletter</h5>
+                    <p>Recibe noticias mensualmente!</p>
+                    <div class="d-flex w-100 gap-2">
+                        <label for="noticiasletter1" class="visually-hidden">Email address</label>
+                        <input id="noticiasletter1" type="text" class="form-control" placeholder="Email address">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center py-3 m-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="{% url 'inicio' %}" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                    <img src="{% static 'favicon.png' %}" alt="Logo - Fundacion amigos del arte y turismo"
+                        height="24px">
+                </a>
+                <span class="text-muted">© 2021 Fundacion Amigos del Arte y Turismo</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3">
+                    <a class="text-muted" href="#">
+                        <i class="bi bi-envelope-at-fill"></i>
+                    </a>
+                </li>
+                <li class="ms-3"><a class="text-muted" href="#">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="text-muted" href="#">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
