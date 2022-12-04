@@ -3,22 +3,22 @@
 
 {% block content %}
 <div class="m-4 p-4">
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user.is_superuser %}
     <a href="{% url 'noticias-crear' %}" class="btn btn-success"><i class="bi bi-plus-square"></i> Crear noticia</a>
     {% endif %}
     <div class="h1">Todas las noticias</div>
     {% if noticias %}
     {% for n in noticias %}
     <div class="card box-shadow-3">
-        {% if n.image %}
-        <img src="{{ n.image.url }}" class="card-img-top" alt="{{n.title}}">
+        {% if n.imagen %}
+        <img src="{{ n.imagen.url }}" class="card-img-top" alt="{{n.titulo}}">
         {% endif %}
         <div class="card-body">
-            <h5 class="card-title">{{n.title}}</h5>
-            <p class="card-text">{{n.body | safe}}</p>
+            <h5 class="card-title">{{n.titulo}}</h5>
+            <p class="card-text">{{n.cuerpo | safe}}</p>
         </div>
         <div class="card-footer">
-            <small class="text-muted">{{n.author.username}} | {{n.created_at}}</small>
+            <small class="text-muted">{{n.autor}} | {{n.creado}}</small>
         </div>
     </div>
     {% endfor %}

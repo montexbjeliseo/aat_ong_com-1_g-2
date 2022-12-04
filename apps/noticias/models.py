@@ -1,35 +1,35 @@
 from django.db import models
 from apps.usuarios.models import *
-# Mi dispiace per le lingue tutte mischiate
-# Create your models here.
 
 class Categoria(models.Model):
-	name = models.CharField(max_length = 60)
-	description = models.CharField(max_length = 250, null = True, blank = True)
+	nombre = models.CharField(max_length = 60)
+	descripcion = models.CharField(max_length = 250, null = True, blank = True)
 
 	def __str__(self):
-		return self.name
-
+		return self.nombre
 
 class Noticia(models.Model):
-	title = models.CharField(max_length = 120)
-	created_at = models.DateField(auto_now_add = True)
-	body = models.TextField()
-	author = models.CharField(max_length = 50, null=True, blank = True)
-	image = models.ImageField(upload_to = 'noticias', null=True, blank = True)
-	category = models.ForeignKey(Categoria, on_delete = models.CASCADE, null = True)
+	titulo = models.CharField(max_length = 120)
+	creado = models.DateField(auto_now_add = True)
+	cuerpo = models.TextField()
+	autor = models.ForeignKey(Usuario, models.SET_NULL, null = True)
+	imagen = models.ImageField(upload_to = 'noticias', null=True, blank = True)
+	categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE, null = True)
+
+	class Meta:
+		ordering = ["-creado"]
 
 	def __str__(self):
-		return self.title
-
-	def get_comentarios(self):
-		return self.comentarios.all()
+		return self.titulo
 
 class Comentario(models.Model):
-	noticias = models.ForeignKey(Noticia, related_name = 'comentarios', on_delete = models.CASCADE)
-	text = models.TextField()
-	create_at = models.DateTimeField(auto_now_add = True)
-	user = models.ForeignKey(Usuario, related_name = 'usuarios_comentarios' , on_delete = models.CASCADE)
+	noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
+	texto = models.TextField(max_length=1000, help_text="Deja un comentario")
+	creado = models.DateTimeField(auto_now_add = True)
+	usuario = models.ForeignKey(Usuario, on_delete = models.SET_NULL, null = True)
+	
+	class Meta:
+		ordering = ["creado"]
 
 	def __str__(self):
-		return self.text
+		return self.texto
