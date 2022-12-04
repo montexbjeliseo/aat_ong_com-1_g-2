@@ -4,7 +4,7 @@
 {% block content %}
 <div class="m-4 p-4">
     {% if user.is_authenticated and user.is_superuser %}
-    <a href="{% url 'noticias-crear' %}" class="btn btn-success"><i class="bi bi-plus-square"></i> Crear noticia</a>
+    <a href="{% url 'noticias:crear' %}" class="btn btn-success"><i class="bi bi-plus-square"></i> Crear noticia</a>
     {% endif %}
     <div class="h1">Todas las noticias</div>
     {% if noticias %}
@@ -14,11 +14,17 @@
         <img src="{{ n.imagen.url }}" class="card-img-top" alt="{{n.titulo}}">
         {% endif %}
         <div class="card-body">
-            <h5 class="card-title">{{n.titulo}}</h5>
+            <h5 class="card-title"><a href="{{n.get_absolute_url}}">{{n.titulo}}</a></h5>
             <p class="card-text">{{n.cuerpo | safe}}</p>
         </div>
         <div class="card-footer">
-            <small class="text-muted">{{n.autor}} | {{n.creado}}</small>
+            <small class="text-muted">
+                {% if n.autor %}
+                {{n.autor}}
+                {% else %}
+                An&oacute;nimo
+                {% endif %}
+                 | {{n.creado}}</small>
         </div>
     </div>
     {% endfor %}

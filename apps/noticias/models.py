@@ -1,5 +1,6 @@
 from django.db import models
 from apps.usuarios.models import *
+from django.urls import reverse_lazy
 
 class Categoria(models.Model):
 	nombre = models.CharField(max_length = 60)
@@ -21,6 +22,9 @@ class Noticia(models.Model):
 
 	def __str__(self):
 		return self.titulo
+
+	def get_absolute_url(self):
+		return reverse_lazy('noticias:ver', args=[self.pk])
 
 class Comentario(models.Model):
 	noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)

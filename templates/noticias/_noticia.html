@@ -1,1 +1,24 @@
-{{ noticia }}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mx-4">
+    <div class="h2">
+        {% if noticia.categoria %}
+        {{noticia.categoria}}
+        {% else %}
+        Sin categoría
+        {% endif %}
+    </div>
+    <div class="h1">{{noticia.titulo}}</div>
+    <small class="text-muted">
+        {% if noticia.autor %}
+        {{noticia.autor}}
+        {% else %}
+        An&oacute;nimo
+        {% endif %}
+         | {{noticia.creado}}</small>
+    <div><img src="{{noticia.imagen.url}}" alt="{{noticia.titulo}}"></div>
+    <div>{{noticia.cuerpo | safe}}</div>
+</div>
+{% endblock content %}
