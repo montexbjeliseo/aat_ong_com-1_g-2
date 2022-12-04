@@ -19,6 +19,11 @@ class CrearNoticia(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     
     def test_func(self):
         return self.request.user.is_superuser
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super(CrearNoticia, self).form_valid(form)
+
 def show(request):
     pass
 

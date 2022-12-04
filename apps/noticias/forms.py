@@ -19,7 +19,3 @@ class NuevaNoticiaForm(ModelForm):
             'autor',
             'categoria'
         ]
-
-    def form_valid(self, form):
-        form.instance.autor = self.request.user
-        return super(self).form_valid(form)
