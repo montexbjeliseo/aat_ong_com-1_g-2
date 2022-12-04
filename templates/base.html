@@ -44,7 +44,7 @@
                         <a class="nav-link" aria-current="page" href="{% url 'contacto' %}">Contacto</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{% url 'noticias' %}" id="navbarDropdown"
+                        <a class="nav-link dropdown-toggle" href="{% url 'noticias:index' %}" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Noticias
                         </a>
@@ -54,7 +54,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'noticias' %}">Todas las noticias</a></li>
+                            <li><a class="dropdown-item" href="{% url 'noticias:index' %}">Todas las noticias</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 
@@ -24,8 +24,9 @@ class CrearNoticia(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         form.instance.autor = self.request.user
         return super(CrearNoticia, self).form_valid(form)
 
-def show(request):
-    pass
+class VerNoticia(DetailView):
+    model = Noticia
+    template_name = 'noticias/_noticia.html'
 
 def edit(request):
     pass
