@@ -7,8 +7,9 @@ from .models import *
 from .forms import *
 
 def index(request):
-    ctx = {}
-    ctx['samples'] = Noticia.objects.all()
+    ctx = {
+        'noticias': list(reversed(Noticia.objects.all()))
+    }
     return render(request, 'noticias/noticias.html', ctx)
 
 class CrearNoticia(LoginRequiredMixin, CreateView):
