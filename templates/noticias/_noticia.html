@@ -24,13 +24,13 @@
         {% endif %}
     </div>
     <div>{{noticia.cuerpo | safe}}</div>
-    <div style="margin-left:20px;margin-top:20px">
+    <div>
         <h4>Comentarios</h4>
         {% if noticia.comentario_set.all %}
         {% for comment in noticia.comentario_set.all %}
         <div class="border">
             <div>{{comment.texto}}</div>
-            <div><small class="text-muted">{{comment.usuario}} | {{comment.creado}}</small></div>
+            <div><small class="text-muted"><b>{{comment.usuario}}</b> | {{comment.creado}}</small></div>
         </div>
         {% endfor %}
         {% else %}
