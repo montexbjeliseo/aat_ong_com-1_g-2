@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mx-4 p-4">
+    <div class="h1">Categor&iacute;as</div>
+    <div>
+        <a href="{% url 'noticias:nueva_categoria' %}" class="btn btn-success">Nueva categor&iacute;a</a>
+    </div>
+    <div>
+        {%if categoria_list %}
+        {% for c in categoria_list %}
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action">
+                <b>{{c.nombre}}</b>
+                <p>{{c.descripcion}}</p>
+            </a>
+            
+        </div>
+        {% endfor %}
+        {% else %}
+        <i>No hay categorías</i>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

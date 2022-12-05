@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="mx-4">
+<div class="container mx-4">
     <div class="h2">
         {% if noticia.categoria %}
         {{noticia.categoria}}
@@ -17,8 +17,35 @@
         {% else %}
         An&oacute;nimo
         {% endif %}
-         | {{noticia.creado}}</small>
-    <div><img src="{{noticia.imagen.url}}" alt="{{noticia.titulo}}"></div>
+        | {{noticia.creado}}</small>
+    <div>
+        {% if noticia.imagen %}
+        <img src="{{noticia.imagen.url}}" alt="{{noticia.titulo}}" width="100%">
+        {% endif %}
+    </div>
     <div>{{noticia.cuerpo | safe}}</div>
+    <div style="margin-left:20px;margin-top:20px">
+        <h4>Comentarios</h4>
+        {% if noticia.comentario_set.all %}
+        {% for comment in noticia.comentario_set.all %}
+        <div class="border">
+            <div>{{comment.texto}}</div>
+            <div><small class="text-muted">{{comment.usuario}} | {{comment.creado}}</small></div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <i>No hay comentarios, se el primero!</i>
+        {% endif %}
+        <hr>
+        {% if user.is_authenticated %}
+        <form action="{{noticia.get_link_comentar}}" method="post">
+            {% csrf_token %}
+            {{ comment_form }}
+            <button class="btn btn-primary" type="submit">Comentar</button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'login'%}?next={{request.path}}">Inicia sesi&oacute;n</a> para comentar</p>
+        {% endif %}
+    </div>
 </div>
 {% endblock content %}

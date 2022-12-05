@@ -19,3 +19,27 @@ class NuevaNoticiaForm(ModelForm):
             'autor',
             'categoria'
         ]
+
+class NuevaCategoriaForm(ModelForm):
+    nombre = CharField(label='Nombre de la categoria', required=True, widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de la categoría'}))
+    descripcion = CharField(label='Descripcion', required=True, widget=Textarea(attrs={
+        'class': 'form-control', 
+        'placeholder': 'Descripcion'
+        }))
+    class Meta:
+        model = Categoria
+        exclude = [
+            'creado'
+        ]
+
+class NuevoComentarioForm(ModelForm):
+    texto = CharField(label='Comenta', required=True, widget=Textarea(attrs={
+        'class': 'form-control', 
+        'rows': 4,
+        'placeholder': 'Deja tu comentario'
+        }))
+    class Meta:
+        model = Comentario
+        fields = [
+            'texto'
+        ]

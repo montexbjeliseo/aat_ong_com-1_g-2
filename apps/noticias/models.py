@@ -1,6 +1,7 @@
 from django.db import models
 from apps.usuarios.models import *
 from django.urls import reverse_lazy
+from django.utils.html import strip_tags
 
 class Categoria(models.Model):
 	nombre = models.CharField(max_length = 60)
@@ -25,6 +26,15 @@ class Noticia(models.Model):
 
 	def get_absolute_url(self):
 		return reverse_lazy('noticias:ver', args=[self.pk])
+
+	def get_link_comentar(self):
+		return reverse_lazy('noticias:comentar', args=[self.pk])
+
+	def get_resumen(self):
+		texto = strip_tags(self.cuerpo)
+		if len(texto) >= 50:
+			return texto[0:47] + "..."
+		return texto
 
 class Comentario(models.Model):
 	noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
