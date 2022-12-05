@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from apps.noticias.models import Noticia
 
 def index(request):
-    ctx = {}
-    ctx['samples'] = [1, 2, 3]
+    ctx = {
+        'noticias': list(reversed(Noticia.objects.all()))
+    }
     return render(request, 'home.html', ctx)
 
 def about(request):

@@ -1,0 +1,14 @@
+.facebook:hover,
+.instagram:hover,
+.envelope:hover {
+    font-size: 1.3rem;
+}
+.facebook:hover {
+    color: #3b5998 !important;
+}
+.instagram:hover {
+    color: #e95950 !important;
+}
+.envelope:hover {
+    color: #bb0000 !important;
+}
