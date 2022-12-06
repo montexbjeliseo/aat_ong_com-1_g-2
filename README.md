@@ -17,4 +17,4 @@ Blog para ONG Amigos del Arte y Turismo JJ Castelli
 - python manage.py runserver
 
 ## Visualizar
-- http:localhost:8000 or 127.0.0.1:8000
+- http://localhost:8000 or http://127.0.0.1:8000
