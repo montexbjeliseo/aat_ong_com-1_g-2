@@ -8,7 +8,8 @@ from .forms import *
 
 def index(request):
     ctx = {
-        'noticias': list(reversed(Noticia.objects.all()))
+        'noticias': list(reversed(Noticia.objects.all())),
+        'categorias': Categoria.objects.all()
     }
     return render(request, 'noticias/noticias.html', ctx)
 
@@ -30,6 +31,9 @@ class VerNoticia(DetailView):
     
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        noticia = self.get_object()
+        noticia.visitas+=1
+        noticia.save()
         ctx['comment_form'] = NuevoComentarioForm()
         return ctx
 

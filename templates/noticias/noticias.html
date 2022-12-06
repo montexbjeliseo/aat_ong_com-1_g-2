@@ -2,17 +2,40 @@
 {% load static %}
 
 {% block content %}
-<main class="container mx-4 flex-wrap">
-    <div class="pt-2 ps-lg-2">
-        {% if user.is_authenticated and user.is_superuser %}
-        <a href="{% url 'noticias:crear' %}" class="btn btn-success"><i class="bi bi-plus-square"></i> Crear
-            noticia</a>
-        <a href="{% url 'noticias:categorias' %}" class="btn btn-secondary">Administrar categorias</a>
-        {% endif %}
+<main class="d-flex flex-row bg-light-dark gap-1">
+    <div>
+        <div class="bg-white sticky-top z-index-1 px-3" style="width: 200px; top:90px;">
+            <ul class="list-unstyled ps-0">
+                {% if user.is_authenticated and user.is_superuser %}
+                <li class="mb-1">
+                    <a href="{% url 'noticias:crear' %}" class="btn btn-success"><i class="bi bi-plus-square"></i> Crear
+                        noticia</a>
+                </li>
+                {% endif %}
+                <li class="mb-1">
+                    <div class="h4">
+                        Categor&iacute;as
+                    </div>
+                    <div>
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark rounded">Más recientes</a></li>
+                            <li><a href="#" class="link-dark rounded">Más destacado</a></li>
+                            {% if categorias %}
+                            {% for c in categorias %}
+                            <li><a href="#" class="link-dark rounded">{{c.nombre}}</a></li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="m-4">
         <div class="h1">Todas las noticias</div>
         {% if noticias %}
         {% for n in noticias %}
-        <div class="card box-shadow-3">
+        <div class="card m-bottom-1 box-shadow-3">
             {% if n.imagen %}
             <img src="{{ n.imagen.url }}" class="card-img-top" alt="{{n.titulo}}">
             {% endif %}

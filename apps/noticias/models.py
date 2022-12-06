@@ -17,7 +17,8 @@ class Noticia(models.Model):
 	autor = models.ForeignKey(Usuario, models.SET_NULL, null = True)
 	imagen = models.ImageField(upload_to = 'noticias', null=True, blank = True)
 	categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE, null = True)
-
+	visitas = models.IntegerField(default=0)
+	
 	class Meta:
 		ordering = ["-creado"]
 
