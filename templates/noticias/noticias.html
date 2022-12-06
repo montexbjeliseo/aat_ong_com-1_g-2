@@ -2,41 +2,44 @@
 {% load static %}
 
 {% block content %}
-<div class="m-4 p-4">
-    {% if user.is_authenticated and user.is_superuser %}
-    <a href="{% url 'noticias:crear' %}" class="btn btn-success"><i class="bi bi-plus-square"></i> Crear noticia</a>
-    <a href="{% url 'noticias:categorias' %}" class="btn btn-secondary">Administrar categorias</a>
-    {% endif %}
-    <div class="h1">Todas las noticias</div>
-    {% if noticias %}
-    {% for n in noticias %}
-    <div class="card box-shadow-3">
-        {% if n.imagen %}
-        <img src="{{ n.imagen.url }}" class="card-img-top" alt="{{n.titulo}}">
+<main class="container mx-4 flex-wrap">
+    <div class="pt-2 ps-lg-2">
+        {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'noticias:crear' %}" class="btn btn-success"><i class="bi bi-plus-square"></i> Crear
+            noticia</a>
+        <a href="{% url 'noticias:categorias' %}" class="btn btn-secondary">Administrar categorias</a>
         {% endif %}
-        <div class="card-body">
-            <h5 class="card-title"><a href="{{n.get_absolute_url}}">{{n.titulo}}</a></h5>
-            <p class="card-text">{{n.get_resumen}}</p>
+        <div class="h1">Todas las noticias</div>
+        {% if noticias %}
+        {% for n in noticias %}
+        <div class="card box-shadow-3">
+            {% if n.imagen %}
+            <img src="{{ n.imagen.url }}" class="card-img-top" alt="{{n.titulo}}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{n.get_absolute_url}}">{{n.titulo}}</a></h5>
+                <p class="card-text">{{n.get_resumen}}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    {% if n.categoria %}
+                    {{n.categoria}}
+                    {% else %}
+                    Sin categor&iacute;a
+                    {% endif %}
+                    |
+                    {% if n.autor %}
+                    {{n.autor}}
+                    {% else %}
+                    An&oacute;nimo
+                    {% endif %}
+                    | {{n.creado}}</small>
+            </div>
         </div>
-        <div class="card-footer">
-            <small class="text-muted">
-                {% if n.categoria %}
-                {{n.categoria}}
-                {% else %}
-                Sin categor&iacute;a
-                {% endif %}
-                 |
-                {% if n.autor %}
-                {{n.autor}}
-                {% else %}
-                An&oacute;nimo
-                {% endif %}
-                 | {{n.creado}}</small>
-        </div>
+        {% endfor %}
+        {% else %}
+        <div class="h3">No hay noticias</div>
+        {% endif %}
     </div>
-    {% endfor %}
-    {% else %}
-    <div class="h3">No hay noticias</div>
-    {% endif %}
-</div>
+</main>
 {% endblock content %}

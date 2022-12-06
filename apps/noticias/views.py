@@ -15,7 +15,7 @@ def index(request):
 class CrearNoticia(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = NuevaNoticiaForm 
     template_name = 'noticias/nueva.html'
-    success_url = reverse_lazy('noticias')
+    success_url = reverse_lazy('noticias:index')
     
     def test_func(self):
         return self.request.user.is_superuser

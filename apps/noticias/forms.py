@@ -1,12 +1,9 @@
 from django.forms import *
 from .models import *
+from django.utils.html import strip_tags
 
 class NuevaNoticiaForm(ModelForm):
     titulo = CharField(label='Titulo', required=True, widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Titulo de la noticia'}))
-    """category = ModelMultipleChoiceField(
-                        queryset=Categoria.objects.all().order_by('name'),
-                        label="Categoria",
-                        widget=CheckboxSelectMultiple)"""
     cuerpo = CharField(label='Cuerpo de la noticia', required=True, widget=Textarea(attrs={
         'class': 'form-control', 
         'placeholder': 'Cuerpo de la noticia'
@@ -17,8 +14,12 @@ class NuevaNoticiaForm(ModelForm):
         exclude = [
             'creado',
             'autor',
-            'categoria'
         ]
+    def clean_cuerpo(self):
+        d_cuerpo = self.cleaned_data['cuerpo']
+        if len(strip_tags(d_cuerpo)) < 50:
+            raise ValidationError('El mínimo de caracteres es de 50')
+        return d_cuerpo
 
 class NuevaCategoriaForm(ModelForm):
     nombre = CharField(label='Nombre de la categoria', required=True, widget=TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de la categoría'}))

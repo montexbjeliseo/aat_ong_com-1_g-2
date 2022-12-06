@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="m-4 p-4">
+<div class="mx-4 flex-wrap py-1">
     <div class="h2">Crear noticia</div>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -15,8 +15,7 @@
     var textarea = document.getElementById('id_cuerpo');
     sceditor.create(textarea, {
         format: 'html',
-        style: 'https://cdn.jsdelivr.net/npm/sceditor@3/minified/themes/content/default.min.css',
-        class: 'form-control'
+        style: 'https://cdn.jsdelivr.net/npm/sceditor@3/minified/themes/content/default.min.css'
     });
 </script>
 {% endblock content %}
