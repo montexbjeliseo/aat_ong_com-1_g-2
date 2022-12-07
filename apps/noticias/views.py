@@ -6,12 +6,15 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 
-def index(request):
-    ctx = {
-        'noticias': list(reversed(Noticia.objects.all())),
-        'categorias': Categoria.objects.all()
-    }
-    return render(request, 'noticias/noticias.html', ctx)
+class VerTodasLasNoticias(ListView):
+    template_name = 'noticias/noticias.html'
+    model = Noticia
+    
+    def get_context_data(self, **kwargs):                
+        ctx = super().get_context_data(**kwargs)
+        ctx['noticias'] = Noticia.objects.all()
+        ctx['categorias'] = Categoria.objects.all()
+        return ctx
 
 class CrearNoticia(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = NuevaNoticiaForm 
@@ -36,7 +39,6 @@ class VerNoticia(DetailView):
         noticia.save()
         ctx['comment_form'] = NuevoComentarioForm()
         return ctx
-
 
 class ListaCategoria(ListView):
     model = Categoria

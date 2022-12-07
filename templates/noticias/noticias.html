@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<main class="d-flex flex-row bg-light-dark gap-1">
-    <div>
+<main class="container-fluid d-flex flex-row gap-1">
+    <div class="bg-light-dark">
         <div class="bg-white sticky-top z-index-1 px-3" style="width: 200px; top:90px;">
             <ul class="list-unstyled ps-0">
                 {% if user.is_authenticated and user.is_superuser %}
@@ -31,11 +31,11 @@
             </ul>
         </div>
     </div>
-    <div class="m-4">
+    <div class="container-fluid m-4 mt-0">
         <div class="h1">Todas las noticias</div>
         {% if noticias %}
         {% for n in noticias %}
-        <div class="card m-bottom-1 box-shadow-3">
+        <div class="card mb-4 box-shadow-3">
             {% if n.imagen %}
             <img src="{{ n.imagen.url }}" class="card-img-top" alt="{{n.titulo}}">
             {% endif %}
