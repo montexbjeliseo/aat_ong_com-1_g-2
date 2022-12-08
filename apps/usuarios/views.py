@@ -4,6 +4,7 @@ from .forms import RegisterUserForm, LoginUserForm
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.conf import settings
 from os import environ as my_conf
+
 def login(request):
     if request.user.is_authenticated:
         return redirect('inicio')

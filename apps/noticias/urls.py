@@ -9,5 +9,6 @@ urlpatterns = [
     path('ver/<int:pk>', VerNoticia.as_view(), name='ver'),
     path('categorias', ListaCategoria.as_view(), name='categorias'),
     path('categorias/crear', CrearCategoria.as_view(), name='nueva_categoria'),
-    path('ver/<int:pk>/comentar', crear_comentario, name="comentar")
+    path('ver/<int:pk>/comentar', crear_comentario, name="comentar"),
+    path('editar/<int:pk>', Editar_Noticia.as_view(), name='editar'),
 ]
