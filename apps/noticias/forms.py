@@ -8,12 +8,13 @@ class NuevaNoticiaForm(ModelForm):
         'class': 'form-control', 
         'placeholder': 'Cuerpo de la noticia'
         }))
-
+    imagen = ImageField(label="Imagen", widget=FileInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Noticia
         exclude = [
             'creado',
             'autor',
+            'visitas',
         ]
     def clean_cuerpo(self):
         d_cuerpo = self.cleaned_data['cuerpo']
