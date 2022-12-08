@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 
@@ -63,3 +63,8 @@ def crear_comentario(request, pk):
         else:
             return redirect('noticias:ver', pk, { 'comment_form': form})
     return redirect('noticias:ver', pk)
+
+class Editar_Noticia(UpdateView):
+    model = Noticia
+    template_name = 'noticias/editar.html'
+    form_class = NuevaNoticiaForm
