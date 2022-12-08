@@ -31,6 +31,9 @@ class Noticia(models.Model):
 	def get_link_comentar(self):
 		return reverse_lazy('noticias:comentar', args=[self.pk])
 
+	def get_link_editar(self):
+		return reverse_lazy('noticias:editar', args=[self.pk])
+		
 	def get_resumen(self):
 		texto = strip_tags(self.cuerpo)
 		if len(texto) >= 50:
