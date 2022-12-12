@@ -11,10 +11,10 @@ def index(request):
     return render(request, 'home.html', ctx)
 
 def about(request):
-	return render(request, 'nosotros.html')
+	return render(request, 'nosotros.html', {'categorias': Categoria.objects.all()})
 
 def contact(request):
-	return render(request, 'contacto.html')
+	return render(request, 'contacto.html', {'categorias': Categoria.objects.all()})
 
 def faq(request):
-	return render(request, 'nosotros.html')
+	return render(request, 'nosotros.html', {'categorias': Categoria.objects.all()})

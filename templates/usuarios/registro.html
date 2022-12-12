@@ -3,9 +3,11 @@
 {% block content %}
 <main>
     <div class="m-4">
-        <form class="p-4 shadow p-3 mb-5 bg-body rounded border-1" style="max-width: 500px; margin: auto;" method="post">
+        <form class="p-4 shadow p-3 mb-5 bg-body rounded border-1" style="max-width: 500px; margin: auto;"
+            method="post">
             {% csrf_token %}
             <div class="h1">Registrarse</div>
+            {{form.errors}}
             <div class="mb-3">
                 <label for="id_first_name" class="form-label">Nombre</label>
                 {{form.first_name}}
@@ -29,9 +31,9 @@
             </div>
             <div class="mb-3">
                 <label for="id_email" class="form-label">Correo electrónico</label>
-                {{form.username}}
+                {{form.email}}
                 <div class="text-danger">
-                    {{form.username.errors}}
+                    {{form.email.errors}}
                 </div>
             </div>
             <div class="mb-3">
@@ -48,7 +50,8 @@
                     {{form.password2.errors}}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Crear usuario</button> | <a href="{% url 'login' %}">Ya tengo una
+            <button type="submit" class="btn btn-primary">Crear usuario</button> | <a href="{% url 'login' %}">Ya tengo
+                una
                 cuenta</a>
         </form>
     </div>
