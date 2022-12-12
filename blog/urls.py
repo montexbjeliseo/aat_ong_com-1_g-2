@@ -27,6 +27,7 @@ urlpatterns = [
     path('faq', views.faq, 'faq'),
     path('noticias/', include('apps.noticias.urls')),
     path('usuarios/', include('apps.usuarios.urls')),
+    path('slides/', include('apps.slides.urls')),
 ]
 
 if settings.DEBUG:  

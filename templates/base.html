@@ -114,10 +114,13 @@
             <div class="col-3">
                 <h5>Noticias</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 1</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 2</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 3</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Categor&iacute;a 4</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Más recientes</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Más destacadas</a></li>
+                    {% if categorias %}
+                    {% for categoria in categorias %}
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">{{categoria.nombre}}</a></li>
+                    {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
             <div class="col-4 offset-1">

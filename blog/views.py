@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from apps.noticias.models import Noticia
+from apps.noticias.models import *
+from apps.slides.models import Slide
 
 def index(request):
     ctx = {
-        'noticias': list(reversed(Noticia.objects.all()))
+        'noticias': list(reversed(Noticia.objects.all())),
+        'categorias': Categoria.objects.all(),
+        'slides': Slide.objects.all()
     }
     return render(request, 'home.html', ctx)
 
