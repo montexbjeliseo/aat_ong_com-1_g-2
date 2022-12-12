@@ -11,4 +11,5 @@ urlpatterns = [
     path('categorias/crear', CrearCategoria.as_view(), name='nueva_categoria'),
     path('ver/<int:pk>/comentar', crear_comentario, name="comentar"),
     path('editar/<int:pk>', Editar_Noticia.as_view(), name='editar'),
+    path('ver/<int:pk>/comentar/<int:cpk>/editar', actualizar_comentario, name='editar_comentario')
 ]

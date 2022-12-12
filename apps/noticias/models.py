@@ -44,6 +44,8 @@ class Comentario(models.Model):
 	noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
 	texto = models.TextField(max_length=1000, help_text="Deja un comentario")
 	creado = models.DateTimeField(auto_now_add = True)
+	modificado = models.DateTimeField(auto_now_add = True)
+	editado = models.BooleanField(default = False)
 	usuario = models.ForeignKey(Usuario, on_delete = models.SET_NULL, null = True)
 	
 	class Meta:
@@ -51,3 +53,6 @@ class Comentario(models.Model):
 
 	def __str__(self):
 		return self.texto
+
+	def get_link_editar(self):
+		return reverse_lazy('noticias:editar_comentario', args=[self.noticia.pk, self.pk])
