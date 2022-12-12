@@ -11,7 +11,7 @@
         {% endif %}
     </div>
     <div class="h1">{{noticia.titulo}}
-        {% if user.is_authenticated and user.is_superuser %} 
+        {% if user.is_authenticated and user.is_superuser %}
         <a href="{{noticia.get_link_editar}}" class="btn btn-success">Editar</a>
         {% endif %}
     </div>
@@ -31,10 +31,27 @@
     <div>
         <h4>Comentarios</h4>
         {% if noticia.comentario_set.all %}
-        {% for comment in noticia.comentario_set.all %}
-        <div class="border">
-            <div>{{comment.texto}}</div>
-            <div><small class="text-muted"><b>{{comment.usuario}}</b> | {{comment.creado}}</small></div>
+        {% for comentario in noticia.comentario_set.all %}
+        <form id="id_texto{{comentario.pk}}" action="{{comentario.get_link_editar}}" method="POST" class="d-none">
+            {% csrf_token %}
+            <textarea name="texto" class="form-control"
+                rows="4">{{comentario.texto}}</textarea>
+            <button class="btn btn-primary" type="submit">Guardar</button>
+            <button class="btn btn-danger" type="reset" onclick="cancelar_edicion('{{comentario.pk}}');">Cancelar</button>
+        </form>
+        <div class="border" id="id_comentario{{comentario.pk}}">
+            <div>{{comentario.texto}}</div>
+            <div>
+                <small class="text-muted">
+                    <b>{{comentario.usuario}}</b> | {{comentario.modificado}}
+                    {% if comentario.editado %}
+                    | <b>Editado</b> 
+                    {% endif %}
+                    {% if user.is_authenticated and user == comentario.usuario %}
+                    | <a href="javascript:editar({{comentario.pk}});"><b>Editar</b></a>
+                    {% endif %}
+                </small>
+            </div>
         </div>
         {% endfor %}
         {% else %}
@@ -52,4 +69,5 @@
         {% endif %}
     </div>
 </div>
+<script src="{% static 'js/comentario.js' %}" type="text/javascript"></script>
 {% endblock content %}

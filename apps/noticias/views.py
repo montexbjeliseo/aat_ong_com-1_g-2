@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 
+from datetime import datetime
+
 class VerTodasLasNoticias(ListView):
     template_name = 'noticias/noticias.html'
     model = Noticia
@@ -68,3 +70,16 @@ class Editar_Noticia(UpdateView):
     model = Noticia
     template_name = 'noticias/editar.html'
     form_class = NuevaNoticiaForm
+
+def actualizar_comentario(request, pk, cpk):
+    if request.method == "POST":
+        form = NuevoComentarioForm(data = request.POST)
+        comentario = Comentario.objects.get(pk=cpk)
+        if form.is_valid() and comentario.usuario == request.user:
+            comentario.texto = form.instance.texto
+            comentario.editado = True
+            comentario.modificado = datetime.now()
+            comentario.save()
+        else:
+            return redirect('noticias:ver', pk, { 'comment_form': form})
+    return redirect('noticias:ver', pk)
