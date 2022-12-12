@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mx-4 flex-wrap py-1">
+    <div class="h2">Lista de Slides</div>
+    {% for slides in slide_list %}
+    <div class="h2">{{ slides.texto }}</div>
+    <div><img src="{{ slides.imagen.url }}" alt="{{slides.texto}}"></div>
+    {% endfor %}
+</div>
+{% endblock content %}

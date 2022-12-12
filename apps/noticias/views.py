@@ -66,10 +66,12 @@ def crear_comentario(request, pk):
             return redirect('noticias:ver', pk, { 'comment_form': form})
     return redirect('noticias:ver', pk)
 
-class Editar_Noticia(UpdateView):
+class Editar_Noticia(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Noticia
     template_name = 'noticias/editar.html'
     form_class = NuevaNoticiaForm
+    def test_func(self):
+        return self.request.user.is_superuser
 
 def actualizar_comentario(request, pk, cpk):
     if request.method == "POST":
