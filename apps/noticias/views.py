@@ -15,6 +15,13 @@ class VerTodasLasNoticias(ListView):
     def get_context_data(self, **kwargs):                
         ctx = super().get_context_data(**kwargs)
         ctx['noticias'] = Noticia.objects.all()
+        if "ordenar_por" in self.request.GET.keys():
+            if self.request.GET['ordenar_por'] == "destacadas":
+                ctx['noticias'] = Noticia.objects.all().order_by('-visitas')
+            elif self.request.GET['ordenar_por'] == "recientes":
+                ctx['noticias'] = Noticia.objects.all().order_by('-creado')
+        elif "categoria" in self.request.GET.keys():
+            ctx['noticias'] = Noticia.objects.filter(categoria_id=self.request.GET['categoria'])
         ctx['categorias'] = Categoria.objects.all()
         return ctx
 
