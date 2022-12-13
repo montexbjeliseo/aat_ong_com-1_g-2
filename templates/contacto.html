@@ -4,18 +4,23 @@
 {% block content %}
 <main>
     <div class="m-4">
-        <form class="p-4 shadow p-3 mb-5 bg-body rounded border-1" style="max-width: 500px; margin: auto;">
+        <form method="POST" class="p-4 shadow p-3 mb-5 bg-body rounded border-1" style="max-width: 500px; margin: auto;">
+           {{form.errors}}
+           {% csrf_token %}
             <div class="mb-3">
                 <label for="nameInput" class="form-label">Nombre y apellido</label>
-                <input placeholder="Nombre y apellido" type="text" class="form-control" id="nameInput" aria-describedby="emailHelp">
+                {{form.nombre}}
+                {{form.nombre.errors}}
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Correo electrónico</label>
-                <input placeholder="Correo electrónico" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                {{form.email}}
+                {{form.email.errors}}
             </div>
             <div class="mb-3">
                 <label for="textarea1" class="form-label">D&eacute;janos tu mensaje</label>
-                <textarea placeholder="D&eacute;janos tu mensaje" class="form-control" name="message" id="textarea1" cols="30" rows="5"></textarea>
+                {{form.mensaje}}
+                {{form.mensaje.errors}}
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">

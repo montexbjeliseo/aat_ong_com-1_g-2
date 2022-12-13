@@ -45,3 +45,17 @@ class NuevoComentarioForm(ModelForm):
         fields = [
             'texto'
         ]
+
+class NuevoContactoForm(ModelForm):
+    mensaje = CharField(label='Comenta', required=True, widget=Textarea(attrs={
+        'class': 'form-control', 
+        'rows': 4,
+        'placeholder': 'Mensaje'
+        }))
+    class Meta:
+        model = Contacto
+        fields = [
+            'nombre', 
+            'email',
+            'mensaje'
+        ]

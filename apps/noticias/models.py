@@ -1,3 +1,4 @@
+import email
 from django.db import models
 from apps.usuarios.models import *
 from django.urls import reverse_lazy
@@ -51,3 +52,9 @@ class Comentario(models.Model):
 
 	def __str__(self):
 		return self.texto
+
+class Contacto (models.Model):
+	nombre = models.CharField(max_length = 60)
+	email = models.EmailField()
+	mensaje = models.TextField(max_length=1000, help_text="Mensaje")
+	respondido= models.BooleanField(default=False)
