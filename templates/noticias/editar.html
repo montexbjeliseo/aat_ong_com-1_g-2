@@ -15,7 +15,8 @@
     var textarea = document.getElementById('id_cuerpo');
     sceditor.create(textarea, {
         format: 'html',
-        style: 'https://cdn.jsdelivr.net/npm/sceditor@3/minified/themes/content/default.min.css'
+        style: 'https://cdn.jsdelivr.net/npm/sceditor@3/minified/themes/content/default.min.css',
+        emoticonsRoot: '/static/'
     });
 </script>
 {% endblock content %}

@@ -7,12 +7,14 @@ from django.urls import reverse_lazy
 
 def index(request):
     ctx = {
-        'noticias': list(reversed(Noticia.objects.all()))
+        'noticias': list(reversed(Noticia.objects.all())),
+        'categorias': Categoria.objects.all(),
+        'slides': Slide.objects.all()
     }
     return render(request, 'home.html', ctx)
 
 def about(request):
-	return render(request, 'nosotros.html')
+	return render(request, 'nosotros.html', {'categorias': Categoria.objects.all()})
 
 class ContactoVista(CreateView):
     template_name= 'contacto.html'
@@ -20,4 +22,4 @@ class ContactoVista(CreateView):
     success_url = reverse_lazy('inicio')
 
 def faq(request):
-	return render(request, 'nosotros.html')
+	return render(request, 'nosotros.html', {'categorias': Categoria.objects.all()})

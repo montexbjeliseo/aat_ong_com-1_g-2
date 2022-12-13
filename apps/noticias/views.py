@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 
+from datetime import datetime
+
 class VerTodasLasNoticias(ListView):
     template_name = 'noticias/noticias.html'
     model = Noticia
@@ -13,6 +15,13 @@ class VerTodasLasNoticias(ListView):
     def get_context_data(self, **kwargs):                
         ctx = super().get_context_data(**kwargs)
         ctx['noticias'] = Noticia.objects.all()
+        if "ordenar_por" in self.request.GET.keys():
+            if self.request.GET['ordenar_por'] == "destacadas":
+                ctx['noticias'] = Noticia.objects.all().order_by('-visitas')
+            elif self.request.GET['ordenar_por'] == "recientes":
+                ctx['noticias'] = Noticia.objects.all().order_by('-creado')
+        elif "categoria" in self.request.GET.keys():
+            ctx['noticias'] = Noticia.objects.filter(categoria_id=self.request.GET['categoria'])
         ctx['categorias'] = Categoria.objects.all()
         return ctx
 
@@ -64,7 +73,22 @@ def crear_comentario(request, pk):
             return redirect('noticias:ver', pk, { 'comment_form': form})
     return redirect('noticias:ver', pk)
 
-class Editar_Noticia(UpdateView):
+class Editar_Noticia(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Noticia
     template_name = 'noticias/editar.html'
     form_class = NuevaNoticiaForm
+    def test_func(self):
+        return self.request.user.is_superuser
+
+def actualizar_comentario(request, pk, cpk):
+    if request.method == "POST":
+        form = NuevoComentarioForm(data = request.POST)
+        comentario = Comentario.objects.get(pk=cpk)
+        if form.is_valid() and comentario.usuario == request.user:
+            comentario.texto = form.instance.texto
+            comentario.editado = True
+            comentario.modificado = datetime.now()
+            comentario.save()
+        else:
+            return redirect('noticias:ver', pk, { 'comment_form': form})
+    return redirect('noticias:ver', pk)
