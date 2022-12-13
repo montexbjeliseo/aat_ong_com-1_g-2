@@ -18,11 +18,11 @@
                     </div>
                     <div>
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#" class="link-dark rounded">Más recientes</a></li>
-                            <li><a href="#" class="link-dark rounded">Más destacado</a></li>
+                            <li><a href="{% url 'noticias:index' %}?ordenar_por=recientes" class="link-dark rounded">Más recientes</a></li>
+                            <li><a href="{% url 'noticias:index' %}?ordenar_por=destacadas" class="link-dark rounded">Más destacado</a></li>
                             {% if categorias %}
-                            {% for c in categorias %}
-                            <li><a href="#" class="link-dark rounded">{{c.nombre}}</a></li>
+                            {% for categoria in categorias %}
+                            <li><a href="{{categoria.get_absolute_url}}" class="link-dark rounded">{{categoria.nombre}}</a></li>
                             {% endfor %}
                             {% endif %}
                         </ul>
@@ -37,7 +37,7 @@
         {% for n in noticias %}
         <div class="card mb-4 box-shadow-3">
             {% if n.imagen %}
-            <img src="{{ n.imagen.url }}" class="card-img-top" alt="{{n.titulo}}">
+            <img src="{{ n.imagen.url }}" class="card-img-top slider-img" alt="{{n.titulo}}">
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title"><a href="{{n.get_absolute_url}}">{{n.titulo}}</a></h5>

@@ -53,8 +53,8 @@
                             Noticias
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Más recientes</a></li>
-                            <li><a class="dropdown-item" href="#">Más destacadas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'noticias:index' %}?ordenar_por=recientes">Más recientes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'noticias:index' %}?ordenar_por=destacadas">Más destacadas</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -114,11 +114,11 @@
             <div class="col-3">
                 <h5>Noticias</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Más recientes</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Más destacadas</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'noticias:index' %}?ordenar_por=recientes" class="nav-link p-0 text-muted">Más recientes</a></li>
+                    <li class="nav-item mb-2"><a href="{% url 'noticias:index' %}?ordenar_por=destacadas" class="nav-link p-0 text-muted">Más destacadas</a></li>
                     {% if categorias %}
                     {% for categoria in categorias %}
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">{{categoria.nombre}}</a></li>
+                    <li class="nav-item mb-2"><a href="{{categoria.get_absolute_url}}" class="nav-link p-0 text-muted">{{categoria.nombre}}</a></li>
                     {% endfor %}
                     {% endif %}
                 </ul>

@@ -24,7 +24,7 @@
         | {{noticia.creado}}</small>
     <div>
         {% if noticia.imagen %}
-        <img src="{{noticia.imagen.url}}" alt="{{noticia.titulo}}" width="100%">
+        <img src="{{noticia.imagen.url}}" alt="{{noticia.titulo}}" width="100%" class="slider-img">
         {% endif %}
     </div>
     <div>{{noticia.cuerpo | safe}}</div>
