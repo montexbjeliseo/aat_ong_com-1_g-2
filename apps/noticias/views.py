@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 
@@ -91,4 +92,23 @@ def actualizar_comentario(request, pk, cpk):
             comentario.save()
         else:
             return redirect('noticias:ver', pk, { 'comment_form': form})
+    return redirect('noticias:ver', pk)
+
+def megusta_noticia(request, pk):
+    if request.method == "POST":
+        noticia = Noticia.objects.get(pk=pk)
+        if request.user in noticia.likes.all():
+            noticia.likes.remove(request.user)
+        else:
+            noticia.likes.add(request.user)
+        #noticia.save()
+    return redirect('noticias:ver', pk)
+
+def megusta_comentario(request, pk, cpk):
+    if request.method == "POST":
+        comentario = Comentario.objects.get(pk=cpk)
+        if request.user in comentario.likes.all():
+            comentario.likes.remove(request.user)
+        else:
+            comentario.likes.add(request.user)
     return redirect('noticias:ver', pk)
