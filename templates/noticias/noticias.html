@@ -32,7 +32,11 @@
         </div>
     </div>
     <div class="container-fluid m-4 mt-0">
+        {% if q %}
+        <div class="h1">Resultados para: "{{q|escape}}"</div>
+        {% else %}
         <div class="h1">Todas las noticias</div>
+        {% endif %}
         {% if noticias %}
         {% for n in noticias %}
         <div class="card mb-4 box-shadow-3">
