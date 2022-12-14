@@ -55,10 +55,12 @@ class Comentario(models.Model):
 
 	def get_link_editar(self):
 		return reverse_lazy('noticias:editar_comentario', args=[self.noticia.pk, self.pk])
-		
+
+
 class Contacto (models.Model):
 	nombre = models.CharField(max_length = 60)
 	email = models.EmailField()
 	mensaje = models.TextField(max_length=1000, help_text="Mensaje")
 	respondido= models.BooleanField(default=False)
+	
 	
