@@ -3,6 +3,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .forms import *
@@ -94,6 +95,7 @@ def actualizar_comentario(request, pk, cpk):
             return redirect('noticias:ver', pk, { 'comment_form': form})
     return redirect('noticias:ver', pk)
 
+@login_required
 def megusta_noticia(request, pk):
     if request.method == "POST":
         noticia = Noticia.objects.get(pk=pk)
@@ -101,9 +103,9 @@ def megusta_noticia(request, pk):
             noticia.likes.remove(request.user)
         else:
             noticia.likes.add(request.user)
-        #noticia.save()
     return redirect('noticias:ver', pk)
-
+    
+@login_required
 def megusta_comentario(request, pk, cpk):
     if request.method == "POST":
         comentario = Comentario.objects.get(pk=cpk)
