@@ -4,10 +4,11 @@ Blog para ONG Amigos del Arte y Turismo JJ Castelli
 ## Dependencias
 - Django 3.2
 - Pillow
-- dotenv
+- Python-dotenv
 
 ## Comenzando
-- python manage.py makemigrations .
+- pip install -r requirements.txt
+- python manage.py makemigrations
 - python manage.py migrate
 
 ## Crear super usuario para administrar el blog
