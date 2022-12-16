@@ -9,14 +9,16 @@ from .models import *
 from .forms import *
 
 from datetime import datetime
+from django.core.paginator import Paginator
 
 class VerTodasLasNoticias(ListView):
     template_name = 'noticias/noticias.html'
     model = Noticia
-    
+    paginate_by = 2
+
     def get_context_data(self, **kwargs):                
         ctx = super().get_context_data(**kwargs)
-        ctx['noticias'] = Noticia.objects.all()
+        noticias = Noticia.objects.all()
         if "ordenar_por" in self.request.GET.keys():
             if self.request.GET['ordenar_por'] == "destacadas":
                 ctx['noticias'] = Noticia.objects.all().order_by('-visitas')
@@ -24,6 +26,12 @@ class VerTodasLasNoticias(ListView):
                 ctx['noticias'] = Noticia.objects.all().order_by('-creado')
         elif "categoria" in self.request.GET.keys():
             ctx['noticias'] = Noticia.objects.filter(categoria_id=self.request.GET['categoria'])
+        paginas = Paginator(noticias, 2)
+        if "page" in self.request.GET.keys():
+            pagina_indice = int(self.request.GET['page'])
+            ctx['noticias'] = paginas.page(pagina_indice)
+        else:
+            ctx['noticias'] = paginas.page(1)
         ctx['categorias'] = Categoria.objects.all()
         return ctx
 
