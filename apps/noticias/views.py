@@ -134,3 +134,11 @@ def megusta_comentario(request, pk, cpk):
         else:
             comentario.likes.add(request.user)
     return redirect('noticias:ver', pk)
+
+@login_required
+def borrar_comentario(request, pk, cpk):
+    if request.method == "POST":
+        comentario = Comentario.objects.get(pk=cpk)
+        if request.user == comentario.usuario:
+            comentario.delete()
+    return redirect('noticias:ver', pk)

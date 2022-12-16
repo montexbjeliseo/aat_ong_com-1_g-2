@@ -70,3 +70,6 @@ class Comentario(models.Model):
 	
 	def get_cantidad_likes(self):
 		return len(self.likes.all())
+
+	def get_link_borrar(self):
+		return reverse_lazy('noticias:borrar_comentario', args=[self.noticia.pk, self.pk])

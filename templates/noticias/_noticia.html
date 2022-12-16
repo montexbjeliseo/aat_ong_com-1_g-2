@@ -83,6 +83,8 @@
                     {% endif %}
                     {% if user.is_authenticated and user == comentario.usuario %}
                     | <a href="javascript:editar({{comentario.pk}});"><b>Editar</b></a>
+                    | <a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#borrar_modal{{comentario.pk}}"><b>Borrar</b></a>
+                    {% include 'noticias/_modal_borrar.html' %}
                     {% endif %}
                 </small>
             </div>
