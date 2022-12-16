@@ -1,21 +1,25 @@
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .forms import *
 
 from datetime import datetime
+from django.core.paginator import Paginator
 
 class VerTodasLasNoticias(ListView):
     template_name = 'noticias/noticias.html'
     model = Noticia
-    
+    paginate_by = 2
+
     def get_context_data(self, **kwargs):                
         ctx = super().get_context_data(**kwargs)
-        ctx['noticias'] = Noticia.objects.all()
+        noticias = Noticia.objects.all()
         
         if "q" in self.request.GET.keys():
             q = self.request.GET['q']
@@ -24,7 +28,7 @@ class VerTodasLasNoticias(ListView):
                 Q(autor__first_name__icontains=q) |
                 Q(categoria__nombre__icontains=q)
             )
-            ctx['noticias'] = Noticia.objects.filter(qset).distinct()
+            noticias = Noticia.objects.filter(qset).distinct()
             ctx['q'] = q
 
         elif "ordenar_por" in self.request.GET.keys():
@@ -34,6 +38,12 @@ class VerTodasLasNoticias(ListView):
                 ctx['noticias'] = Noticia.objects.all().order_by('-creado')
         elif "categoria" in self.request.GET.keys():
             ctx['noticias'] = Noticia.objects.filter(categoria_id=self.request.GET['categoria'])
+        paginas = Paginator(noticias, 2)
+        if "page" in self.request.GET.keys():
+            pagina_indice = int(self.request.GET['page'])
+            ctx['noticias'] = paginas.page(pagina_indice)
+        else:
+            ctx['noticias'] = paginas.page(1)
         ctx['categorias'] = Categoria.objects.all()
         return ctx
 
@@ -103,4 +113,24 @@ def actualizar_comentario(request, pk, cpk):
             comentario.save()
         else:
             return redirect('noticias:ver', pk, { 'comment_form': form})
+    return redirect('noticias:ver', pk)
+
+@login_required
+def megusta_noticia(request, pk):
+    if request.method == "POST":
+        noticia = Noticia.objects.get(pk=pk)
+        if request.user in noticia.likes.all():
+            noticia.likes.remove(request.user)
+        else:
+            noticia.likes.add(request.user)
+    return redirect('noticias:ver', pk)
+    
+@login_required
+def megusta_comentario(request, pk, cpk):
+    if request.method == "POST":
+        comentario = Comentario.objects.get(pk=cpk)
+        if request.user in comentario.likes.all():
+            comentario.likes.remove(request.user)
+        else:
+            comentario.likes.add(request.user)
     return redirect('noticias:ver', pk)
