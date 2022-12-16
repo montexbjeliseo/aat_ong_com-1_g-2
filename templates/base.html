@@ -62,8 +62,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <form class="d-flex" action="{% url 'noticias:index' %}" method="GET">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Buscar" aria-label="Search" value="{{q|escape}}">
                             <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
                         </form>
                     </li>

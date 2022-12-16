@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.db.models import Q
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -19,7 +20,18 @@ class VerTodasLasNoticias(ListView):
     def get_context_data(self, **kwargs):                
         ctx = super().get_context_data(**kwargs)
         noticias = Noticia.objects.all()
-        if "ordenar_por" in self.request.GET.keys():
+        
+        if "q" in self.request.GET.keys():
+            q = self.request.GET['q']
+            qset = (
+                Q(titulo__icontains=q) |
+                Q(autor__first_name__icontains=q) |
+                Q(categoria__nombre__icontains=q)
+            )
+            noticias = Noticia.objects.filter(qset).distinct()
+            ctx['q'] = q
+
+        elif "ordenar_por" in self.request.GET.keys():
             if self.request.GET['ordenar_por'] == "destacadas":
                 ctx['noticias'] = Noticia.objects.all().order_by('-visitas')
             elif self.request.GET['ordenar_por'] == "recientes":
