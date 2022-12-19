@@ -11,10 +11,11 @@ class NuevaNoticiaForm(ModelForm):
     imagen = ImageField(label="Imagen", widget=FileInput(attrs={'class': 'form-control'}))
     class Meta:
         model = Noticia
-        exclude = [
-            'creado',
-            'autor',
-            'visitas',
+        fields = [
+            'titulo',
+            'cuerpo',
+            'categoria',
+            'imagen'
         ]
     def clean_cuerpo(self):
         d_cuerpo = self.cleaned_data['cuerpo']
