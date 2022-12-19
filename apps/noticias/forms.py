@@ -73,10 +73,10 @@ class NuevoContactoForm(ModelForm):
         'rows':4,
         'placeholder': 'Mensaje'}))
 
-class Meta:
-    model = Contacto     
-    fields = [
-        'nombre',
-        'email',
-        'mensaje'
+    class Meta:
+        model = Contacto     
+        fields = [
+            'nombre',
+            'email',
+            'mensaje'
         ]
