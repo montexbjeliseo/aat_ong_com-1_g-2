@@ -28,27 +28,63 @@
         {% endif %}
     </div>
     <div>{{noticia.cuerpo | safe}}</div>
+    <hr>
     <div>
-        <h4>Comentarios</h4>
+        <form action="{{noticia.get_absolute_url}}/like" class="d-inline" method="POST">
+            {% csrf_token %}
+            {% if user in noticia.likes.all %}
+            <button class="btn bi bi-heart-fill"
+                style="color: red; font-size: 1.5rem;">{{noticia.get_cantidad_likes}}</button>
+            {% else %}
+            <button class="btn bi bi-heart"
+                style="color: red; font-size: 1.5rem;">{{noticia.get_cantidad_likes}}</button>
+            {% endif %}
+        </form>
+        <div class="dropdown d-inline">
+            <a class="bi bi-share btn dropdown-toggle text-muted" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Facebook</a></li>
+                <li><a class="dropdown-item" href="#">Twitter</a></li>
+                <li><a class="dropdown-item" href="#">Copiar enlace</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h4>Comentarios <span style="font-size: 1rem;">{{noticia.get_cantidad_comentarios}}</span></h4>
         {% if noticia.comentario_set.all %}
         {% for comentario in noticia.comentario_set.all %}
         <form id="id_texto{{comentario.pk}}" action="{{comentario.get_link_editar}}" method="POST" class="d-none">
             {% csrf_token %}
-            <textarea name="texto" class="form-control"
-                rows="4">{{comentario.texto}}</textarea>
+            <textarea name="texto" class="form-control" rows="4">{{comentario.texto}}</textarea>
             <button class="btn btn-primary" type="submit">Guardar</button>
-            <button class="btn btn-danger" type="reset" onclick="cancelar_edicion('{{comentario.pk}}');">Cancelar</button>
+            <button class="btn btn-danger" type="reset"
+                onclick="cancelar_edicion('{{comentario.pk}}');">Cancelar</button>
         </form>
         <div class="border" id="id_comentario{{comentario.pk}}">
-            <div>{{comentario.texto}}</div>
+            <div class="p-2">{{comentario.texto}}</div>
             <div>
                 <small class="text-muted">
+                    <form action="{{comentario.get_link_like}}" class="d-inline" method="POST">
+                        {% csrf_token %}
+                        {% if user in comentario.likes.all %}
+                        <button class="btn bi bi-heart-fill"
+                            style="color: red; font-size: 1rem;">{{comentario.get_cantidad_likes}}</button>
+                        {% else %}
+                        <button class="btn bi bi-heart"
+                            style="color: red; font-size: 1rem;">{{comentario.get_cantidad_likes}}</button>
+                        {% endif %}
+                    </form>
                     <b>{{comentario.usuario}}</b> | {{comentario.modificado}}
                     {% if comentario.editado %}
-                    | <b>Editado</b> 
+                    | <b>Editado</b>
                     {% endif %}
                     {% if user.is_authenticated and user == comentario.usuario %}
                     | <a href="javascript:editar({{comentario.pk}});"><b>Editar</b></a>
+                    | <a href="javascript:void(0);"  data-bs-toggle="modal" data-bs-target="#borrar_modal{{comentario.pk}}"><b>Borrar</b></a>
+                    {% include 'noticias/_modal_borrar.html' %}
                     {% endif %}
                 </small>
             </div>
