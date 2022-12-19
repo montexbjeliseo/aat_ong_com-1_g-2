@@ -7,6 +7,9 @@
         <form method="POST" class="p-4 shadow p-3 mb-5 bg-body rounded border-1" style="max-width: 500px; margin: auto;">
            {{form.errors}}
            {% csrf_token %}
+            <div class="mb-3 h3">
+                Contáctanos
+            </div>
             <div class="mb-3">
                 <label for="nameInput" class="form-label">Nombre y apellido</label>
                 {{form.nombre}}
@@ -24,7 +27,7 @@
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Suscribirse a nuestro noticiasletter</label>
+                <label class="form-check-label" for="exampleCheck1">Suscribirse a nuestro newsletter</label>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
