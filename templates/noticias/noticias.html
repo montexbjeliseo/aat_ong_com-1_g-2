@@ -60,7 +60,7 @@
                     {% else %}
                     An&oacute;nimo
                     {% endif %}
-                    | {{n.creado}}</small>
+                    | {{ n.creado|timesince }}</small>
             </div>
         </div>
         {% endfor %}
