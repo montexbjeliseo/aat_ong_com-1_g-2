@@ -6,7 +6,28 @@
     <div class="h2">Crear noticia</div>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
+        {{form.errors}}
+        <div class="mb-3">
+        {{form.titulo.label_tag}}
+        {{form.titulo.errors}}
+        {{form.titulo}}
+        </div>
+        <div class="mb-3">
+        {{form.cuerpo.label_tag}}
+        {{form.cuerpo.errors}}
+        {{form.cuerpo}}
+        </div>
+        <div class="mb-3">
+        {{form.categoria.label_tag}}
+        {{form.categoria.errors}}
+        {{form.categoria}}
+        {{form.nueva_categoria}}
+        </div>
+        <div class="mb-3">
+        {{form.imagen.label_tag}}
+        {{form.imagen.errors}}
+        {{form.imagen}}
+        </div>
         <button class="btn btn-primary form-control" value="submit" type="submit">Publicar</button>
     </form>
 </div>
@@ -18,5 +39,7 @@
         style: 'https://cdn.jsdelivr.net/npm/sceditor@3/minified/themes/content/default.min.css',
         emoticonsRoot: '/static/'
     });
+</script>
+<script src="{% static 'js/noticia.js' %}" type="text/javascript">
 </script>
 {% endblock content %}
