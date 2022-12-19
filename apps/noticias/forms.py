@@ -68,7 +68,7 @@ class NuevoContactoForm(ModelForm):
     email= CharField(label = 'Correo electrónico', required=True, widget=TextInput(attrs={
         'class': 'form-control',
         'placeholder': 'Correo electrónico'}))
-    mensaje = CharField(label='Comenta', required=True, widget=TextInput(attrs={
+    mensaje = CharField(label='Comenta', required=True, widget=Textarea(attrs={
         'class': 'form-control',
         'rows':4,
         'placeholder': 'Mensaje'}))
