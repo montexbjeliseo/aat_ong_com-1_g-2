@@ -1,5 +1,7 @@
 from urllib import request
 from django.shortcuts import render
+from apps.noticias.models import Categoria
+from apps.slides.models import Slide
 from django.views.generic import CreateView
 from apps.noticias.models import Noticia
 from apps.noticias.forms import NuevoContactoForm
