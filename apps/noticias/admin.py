@@ -4,6 +4,7 @@ from .models import *
 
 admin.site.register(Categoria)
 admin.site.register(Comentario)
+admin.site.register(Contacto)
 
 class Comentarios(admin.TabularInline):
     model = Comentario
