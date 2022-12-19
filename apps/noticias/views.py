@@ -38,7 +38,7 @@ class VerTodasLasNoticias(ListView):
                 ctx['noticias'] = Noticia.objects.all().order_by('-creado')
         elif "categoria" in self.request.GET.keys():
             ctx['noticias'] = Noticia.objects.filter(categoria_id=self.request.GET['categoria'])
-        paginas = Paginator(noticias, 2)
+        paginas = Paginator(noticias, 5)
         if "page" in self.request.GET.keys():
             pagina_indice = int(self.request.GET['page'])
             ctx['noticias'] = paginas.page(pagina_indice)
