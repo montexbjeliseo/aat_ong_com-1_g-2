@@ -17,7 +17,7 @@
                     <p class="card-text">{{n.get_resumen}}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">{{n.creado}}</small>
+                    <small class="text-muted">{{n.creado|timesince}}</small>
                 </div>
             </div>
             {% endfor %}
