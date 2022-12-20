@@ -1,8 +1,8 @@
-.slider-img {
-    height: 500px;
-    object-fit: cover;
+@media(max-width: 700px){
+    .slider-img {
+        height: 300px;
+    }
 }
-
 @media(max-width: 600px){
     .slider-img {
         height: 250px;
