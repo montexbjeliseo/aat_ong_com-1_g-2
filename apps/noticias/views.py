@@ -33,11 +33,21 @@ class VerTodasLasNoticias(ListView):
 
         elif "ordenar_por" in self.request.GET.keys():
             if self.request.GET['ordenar_por'] == "destacadas":
-                ctx['noticias'] = Noticia.objects.all().order_by('-visitas')
+                noticias = Noticia.objects.all().order_by('-visitas')
             elif self.request.GET['ordenar_por'] == "recientes":
-                ctx['noticias'] = Noticia.objects.all().order_by('-creado')
+                noticias = Noticia.objects.all().order_by('-creado')
         elif "categoria" in self.request.GET.keys():
-            ctx['noticias'] = Noticia.objects.filter(categoria_id=self.request.GET['categoria'])
+            noticias = Noticia.objects.filter(categoria_id=self.request.GET['categoria'])
+        elif "mes" in self.request.GET.keys() and "anio" in self.request.GET.keys():
+            mes = self.request.GET['mes']
+            anio = self.request.GET['anio']
+            noticias = Noticia.objects.filter(creado__month=mes, creado__year=anio)
+
+
+        else:
+            noticias = Noticia.objects.all()
+        
+        
         paginas = Paginator(noticias, 5)
         if "page" in self.request.GET.keys():
             pagina_indice = int(self.request.GET['page'])
@@ -45,6 +55,7 @@ class VerTodasLasNoticias(ListView):
         else:
             ctx['noticias'] = paginas.page(1)
         ctx['categorias'] = Categoria.objects.all()
+        ctx['fechas'] = Noticia.objects.all().values('creado__month', 'creado__year').distinct()
         return ctx
 
 class CrearNoticia(LoginRequiredMixin, UserPassesTestMixin, CreateView):

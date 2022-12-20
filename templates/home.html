@@ -6,10 +6,25 @@
     <!--Carousel-->
     {% include 'slides/slide_show.html' %}
     <!--Noticias-->
-    <div class="m-4 p-4">
+    <div class="p-4">
         <div class="h1">Últimas Noticias</div>
         <div class="card-group gap-3">
-            {% for n in noticias|slice:":3" %}
+            {% for n in ultimas_noticias|slice:":3" %}
+            <div class="card box-shadow-3">
+                <img src="{{n.imagen.url}}" class="card-img-top thumbnail" alt="{{n.titulo}} | {{n.categoria}}">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{n.get_absolute_url}}">{{n.titulo}}</a></h5>
+                    <p class="card-text">{{n.get_resumen}}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{n.creado|timesince}}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="h1">Noticias más destacadas</div>
+        <div class="card-group gap-3">
+            {% for n in noticias_destacadas|slice:":3" %}
             <div class="card box-shadow-3">
                 <img src="{{n.imagen.url}}" class="card-img-top thumbnail" alt="{{n.titulo}} | {{n.categoria}}">
                 <div class="card-body">

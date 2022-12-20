@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="flex-wrap mx-4">
+<div class="container-fluid flex-wrap px-4">
     <div class="h2">
         {% if noticia.categoria %}
         {{noticia.categoria}}
@@ -24,7 +24,7 @@
         | {{noticia.creado|timesince}}</small>
     <div>
         {% if noticia.imagen %}
-        <img src="{{noticia.imagen.url}}" alt="{{noticia.titulo}}" width="100%" class="slider-img">
+        <img src="{{noticia.imagen.url}}" alt="{{noticia.titulo}}" width="100%" class="img-fluid slider-img">
         {% endif %}
     </div>
     <div>{{noticia.cuerpo | safe}}</div>
