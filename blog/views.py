@@ -9,9 +9,10 @@ from django.urls import reverse_lazy
 
 def index(request):
     ctx = {
-        'noticias': list(reversed(Noticia.objects.all())),
+        'ultimas_noticias': list(reversed(Noticia.objects.all())),
+        'noticias_destacadas': Noticia.objects.all().order_by('-visitas'),
         'categorias': Categoria.objects.all(),
-        'slides': Slide.objects.all()
+        'slides': Slide.objects.all(),
     }
     return render(request, 'home.html', ctx)
 

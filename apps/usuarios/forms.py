@@ -27,7 +27,7 @@ class RegisterUserForm(UserCreationForm):
             'placeholder': 'Confirmar contraseña'}), required=True)
 
     class Meta:
-        model = get_user_model()
+        model = Usuario
         fields = [
             'first_name',
             'last_name',

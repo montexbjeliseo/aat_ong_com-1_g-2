@@ -3,8 +3,9 @@
 
 <head>
     <title>Fundacion Amigos del Arte y Turismo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="icon" href="{% static 'favicon.png' %}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sceditor@3/minified/themes/default.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/sceditor@3/minified/sceditor.min.js"></script>
 
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="{% static 'css/slider.css' %}">
     <link rel="stylesheet" href="{% static 'css/redes.css' %}">
     <link rel="stylesheet" href="{% static 'css/noticias.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 </head>
 
 <body>
@@ -98,8 +100,8 @@
     {% block content %}
     {% endblock content %}
     <footer class="px-4">
-        <div class="row d-flex justify-content-evenly">
-            <div class="col-3">
+        <div class="card-group">
+            <div class="card border-0">
                 <h5>Navegación</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a href="{% url 'inicio' %}" class="nav-link p-0 text-muted">Inicio</a>
@@ -111,7 +113,7 @@
                     <li class="nav-item mb-2"><a href="#faq" class="nav-link p-0 text-muted">FAQs</a></li>
                 </ul>
             </div>
-            <div class="col-3">
+            <div class="card border-0">
                 <h5>Noticias</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a href="{% url 'noticias:index' %}?ordenar_por=recientes" class="nav-link p-0 text-muted">Más recientes</a></li>
@@ -123,7 +125,7 @@
                     {% endif %}
                 </ul>
             </div>
-            <div class="col-4 offset-1">
+            <div class="card border-0">
                 {% if user.is_authenticated %}
                 <div>
                     <div class="h3">Gracias por formar parte!</div>

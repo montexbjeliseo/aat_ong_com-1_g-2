@@ -1,5 +1,33 @@
 {% extends "base.html"%}
-
+{% load static %}
 {% block content %}
-{{usuario.username}}
+	<div class="my-3 p-3">
+		<div class="text-center">
+			<div>{% if usuario.imagen %}
+				<img class="rounded-circle" style="object-fit: cover" width="250px" height="250px" src="{{usuario.imagen.url}}" alt="{{usuario.username}} | Perfil"/>
+				{% else %}
+				<img class="rounded-circle" style="object-fit: cover" width="250px" height="250px" src="{% static 'img/no_imagen.png' %}">
+				{% endif %}
+			</div>
+			<div>
+				<div class="h3">
+				{% if usuario.last_name %}
+				{{usuario.last_name}}
+				{% else %}
+				Sin apellido
+				{% endif %}
+				</div>
+				<div class="h3">
+				{% if usuario.first_name %}
+				{{usuario.first_name}}
+				{% else %}
+			Sin nombre
+				{% endif %}
+				</div>
+				<div class="h3">
+				({{usuario.username}})
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock content %}
