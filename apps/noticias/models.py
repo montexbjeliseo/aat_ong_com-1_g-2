@@ -1,3 +1,4 @@
+import email
 from django.db import models
 from apps.usuarios.models import *
 from django.urls import reverse_lazy
@@ -56,6 +57,7 @@ class Comentario(models.Model):
 	usuario = models.ForeignKey(Usuario, on_delete = models.SET_NULL, null = True)
 	likes = models.ManyToManyField(Usuario, blank=True, related_name='likes_comentarios')
 	
+	
 	class Meta:
 		ordering = ["creado"]
 
@@ -73,3 +75,9 @@ class Comentario(models.Model):
 
 	def get_link_borrar(self):
 		return reverse_lazy('noticias:borrar_comentario', args=[self.noticia.pk, self.pk])
+
+class Contacto(models.Model):
+	nombre = models.CharField(max_length = 60)
+	email = models.EmailField()
+	mensaje = models.TextField(max_length=1000, help_text="Mensaje")
+	respondido= models.BooleanField(default=False)
