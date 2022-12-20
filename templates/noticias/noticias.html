@@ -13,12 +13,20 @@
                 </li>
                 {% endif %}
                 <li class="mb-1">
+                    <br>
+                    <div>
+                        <ul class="h4" style="list-style: none">
+                            <li><a href="{% url 'noticias:index' %}" class="link-dark rounded">Todas</a></li>       
+                        </ul>
+                    </div>
+                    <br>
+                    <hr></hr>
+                    <br>
                     <div class="h4">
-                        Categor&iacute;as
+                        Por Categor&iacute;as
                     </div>
                     <div>
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="{% url 'noticias:index' %}?ordenar_por=recientes" class="link-dark rounded">Más recientes</a></li>
                             <li><a href="{% url 'noticias:index' %}?ordenar_por=destacadas" class="link-dark rounded">Más destacado</a></li>
                             {% if categorias %}
                             {% for categoria in categorias %}
@@ -27,6 +35,24 @@
                             {% endif %}
                         </ul>
                     </div>
+                    <br>
+                    <hr></hr>
+                    <br>
+                    <div class="h4">
+                        Por Fechas
+                    </div>
+                    <div>
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="{% url 'noticias:index' %}?ordenar_por=recientes" class="link-dark rounded">Más recientes</a></li>
+                            {% if fechas %}
+                            {% for fecha in fechas %}
+                            <li><a href="{% url 'noticias:index' %}?mes={{fecha.creado__month}}&anio={{fecha.creado__year}}" class="link-dark rounded">{{fecha.creado__month}} / {{fecha.creado__year}}</a></li>
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <br>
+                    <br>
                 </li>
             </ul>
         </div>
@@ -35,7 +61,7 @@
         {% if q %}
         <div class="h1">Resultados para: "{{q|escape}}"</div>
         {% else %}
-        <div class="h1">Todas las noticias</div>
+        <div class="h1">Noticias</div>
         {% endif %}
         {% if noticias %}
         {% for n in noticias %}
