@@ -27,15 +27,15 @@ class RegisterUserForm(UserCreationForm):
             'class': 'form-control', 
             'placeholder': 'Confirmar contraseña'}), required=True)
 
-class Meta:
-    model = Usuario
-    fields = [
-        'first_name',
-        'last_name',
-        'username',
-        'email',
-        'password1',
-        'password2'
+    class Meta:
+        model = Usuario
+        fields = [
+            'first_name',
+            'last_name',
+            'username',
+            'email',
+            'password1',
+            'password2'
         ]
 
 class LoginUserForm(AuthenticationForm):
@@ -46,10 +46,10 @@ class LoginUserForm(AuthenticationForm):
             'placeholder': 'Contraseña'
         }
     ))
-class Meta:
-    fields = [
-        'username',
-        'password'
+    class Meta:
+        fields = [
+            'username',
+            'password'
         ]
 
 
