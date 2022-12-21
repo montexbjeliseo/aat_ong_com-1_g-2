@@ -6,11 +6,13 @@ from django.conf import settings
 from django.views.generic import DetailView
 from os import environ as my_conf
 from .models import *
+from apps.noticias.models import *
 def login(request):
     if request.user.is_authenticated:
         return redirect('inicio')
     ctx = {
-        'form': LoginUserForm
+        'form': LoginUserForm,
+        'categorias': Categoria.objects.all()
     }
     if request.method == "POST":
         form = LoginUserForm(data = request.POST)
@@ -19,13 +21,17 @@ def login(request):
             login_user(request, user)
             return redireccion(request)
         else:
-            return render(request, 'usuarios/login.html', { 'form': form })
-    else:
-        return render(request, 'usuarios/login.html', ctx)
+            ctx['form'] = form
+    
+    return render(request, 'usuarios/login.html', ctx)
 
 def register(request):
     if request.user.is_authenticated:
         return redirect('inicio')
+    ctx = {
+        'form': RegisterUserForm,
+        'categorias': Categoria.objects.all()
+    }
     if request.method == "POST":
         form = RegisterUserForm(data = request.POST)
         if form.is_valid():
@@ -34,12 +40,8 @@ def register(request):
             login_user(request, user)
             return redireccion(request)
         else :
-            return render(request, 'usuarios/registro.html', { 'form': form })
-    else:
-        ctx = {
-            'form': RegisterUserForm
-        }
-        return render(request, 'usuarios/registro.html', ctx)
+            ctx['form'] = form
+    return render(request, 'usuarios/registro.html', ctx)
 
 def logout(request):
     if request.user.is_authenticated:
@@ -66,3 +68,7 @@ class PerfilVista(DetailView):
     slug_field = "username"
     slug_url_kwarg = "username"
     context_object_name = 'usuario'
+    def get_context_data(self, **kwargs):                
+        ctx = super().get_context_data(**kwargs)
+        ctx['categorias'] = Categoria.objects.all()
+        return ctx
