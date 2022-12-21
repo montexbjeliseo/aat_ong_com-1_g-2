@@ -24,5 +24,10 @@ class ContactoVista(CreateView):
     form_class= NuevoContactoForm
     success_url = reverse_lazy('inicio')
 
+    def get_context_data(self, **kwargs):                
+        ctx = super().get_context_data(**kwargs)
+        ctx['categorias'] = Categoria.objects.all()
+        return ctx
+
 def faq(request):
 	return render(request, 'nosotros.html', {'categorias': Categoria.objects.all()})
