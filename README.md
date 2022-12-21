@@ -18,4 +18,10 @@ Blog para ONG Amigos del Arte y Turismo JJ Castelli
 - python manage.py runserver
 
 ## Visualizar
-- http://localhost:8000 or http://127.0.0.1:8000
+- Local
+  - http://localhost:8000 or http://127.0.0.1:8000
+- Online
+  - https://montexbjeliseo.pythonanywhere.com/
+
+## Aclaraciones
+- La base de datos de la demo __no__ está en este repositorio. Por lo tanto al correr en __local__ tendrá que cargar sus propios recursos(crear usuarios, noticias, etc).
