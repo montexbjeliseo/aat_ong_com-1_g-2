@@ -55,7 +55,7 @@ class VerTodasLasNoticias(ListView):
         else:
             ctx['noticias'] = paginas.page(1)
         ctx['categorias'] = Categoria.objects.all()
-        ctx['fechas'] = Noticia.objects.all().values('creado__month', 'creado__year').distinct()
+        ctx['fechas'] = Noticia.objects.all().values('creado__month', 'creado__year').distinct().order_by('-creado__month', '-creado__year')
         return ctx
 
 class CrearNoticia(LoginRequiredMixin, UserPassesTestMixin, CreateView):
